@@ -1,29 +1,7 @@
-const billInput = document.getElementById("bill");
-const sizeInput = document.getElementById("size");
-const calculateBtn = document.getElementById("calculate");
-const annualEl = document.getElementById("annual");
-const costEl = document.getElementById("cost");
-const paybackEl = document.getElementById("payback");
+const billInput=document.getElementById("bill");const sizeInput=document.getElementById("size");const calculateBtn=document.getElementById("calculate");const annualEl=document.getElementById("annual");const costEl=document.getElementById("cost");const paybackEl=document.getElementById("payback");function money(value){return "PKR "+Math.round(value).toLocaleString("en-PK")}function calculate(){const bill=Math.max(0,Number(billInput.value)||0);const size=Number(sizeInput.value);const coverage={3:.45,5:.65,10:.85,15:.95}[size];const annualSavings=bill*12*coverage;const estimatedCost=size*150000;const payback=annualSavings>0?estimatedCost/annualSavings:0;annualEl.textContent=money(annualSavings);costEl.textContent=money(estimatedCost);paybackEl.textContent=payback?payback.toFixed(1)+" years":"—"}calculateBtn.addEventListener("click",calculate);billInput.addEventListener("input",calculate);sizeInput.addEventListener("change",calculate);document.getElementById("year").textContent=new Date().getFullYear();
 
-function money(value) {
-  return "PKR " + Math.round(value).toLocaleString("en-PK");
-}
-
-function calculate() {
-  const bill = Math.max(0, Number(billInput.value) || 0);
-  const size = Number(sizeInput.value);
-  // Simplified planning assumptions; replace with your own market data later.
-  const coverage = {3: 0.45, 5: 0.65, 10: 0.85, 15: 0.95}[size];
-  const annualSavings = bill * 12 * coverage;
-  const estimatedCost = size * 150000;
-  const payback = annualSavings > 0 ? estimatedCost / annualSavings : 0;
-
-  annualEl.textContent = money(annualSavings);
-  costEl.textContent = money(estimatedCost);
-  paybackEl.textContent = payback ? payback.toFixed(1) + " years" : "—";
-}
-
-calculateBtn.addEventListener("click", calculate);
-billInput.addEventListener("input", calculate);
-sizeInput.addEventListener("change", calculate);
-document.getElementById("year").textContent = new Date().getFullYear();
+const menuToggle=document.getElementById("menuToggle");const siteMenu=document.getElementById("siteMenu");const menuClose=document.getElementById("menuClose");const menuOverlay=document.getElementById("menuOverlay");const searchToggle=document.getElementById("searchToggle");const searchPanel=document.getElementById("searchPanel");const siteSearch=document.getElementById("siteSearch");const searchClear=document.getElementById("searchClear");const searchStatus=document.getElementById("searchStatus");const menuSearch=document.getElementById("menuSearch");const articleCards=[...document.querySelectorAll(".article-card")];const emptySearch=document.getElementById("emptySearch");
+function openMenu(){siteMenu.classList.add("open");menuOverlay.classList.add("open");siteMenu.setAttribute("aria-hidden","false");menuToggle.setAttribute("aria-expanded","true")}function closeMenu(){siteMenu.classList.remove("open");menuOverlay.classList.remove("open");siteMenu.setAttribute("aria-hidden","true");menuToggle.setAttribute("aria-expanded","false")}menuToggle.addEventListener("click",openMenu);menuClose.addEventListener("click",closeMenu);menuOverlay.addEventListener("click",closeMenu);siteMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",closeMenu));
+function filterArticles(query){const q=query.trim().toLowerCase();let shown=0;articleCards.forEach(card=>{const text=(card.dataset.search||"")+" "+card.textContent.toLowerCase();const match=!q||text.includes(q);card.style.display=match?"":"none";if(match)shown++});emptySearch.hidden=shown!==0||!q;searchStatus.textContent=q?(shown+" article"+(shown===1?"":"s")+" found."):"Search the latest solar guides and categories."}
+searchToggle.addEventListener("click",()=>{const open=!searchPanel.classList.contains("open");searchPanel.classList.toggle("open",open);searchPanel.setAttribute("aria-hidden",String(!open));searchToggle.setAttribute("aria-expanded",String(open));if(open)setTimeout(()=>siteSearch.focus(),80)});siteSearch.addEventListener("input",e=>filterArticles(e.target.value));searchClear.addEventListener("click",()=>{siteSearch.value="";filterArticles("");siteSearch.focus()});menuSearch.addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase();siteMenu.querySelectorAll(".menu-section a").forEach(a=>{a.style.display=!q||a.textContent.toLowerCase().includes(q)?"":"none"})});document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMenu();searchPanel.classList.remove("open");searchToggle.setAttribute("aria-expanded","false")}});
+calculate();
