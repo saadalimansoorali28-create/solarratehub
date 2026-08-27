@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SolarRateHub - simple solar system pricing, savings and sizing tools.">
+  <title>SolarRateHub | Solar Savings Made Simple</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="#home"><span>☀</span> SolarRateHub</a>
+      <nav>
+        <a href="#rates">Rates</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#guide">Guide</a>
+      </nav>
+      <a class="nav-btn" href="#calculator">Calculate</a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">SMART SOLAR PLANNING</p>
+          <h1>Make your solar decision with <span>confidence.</span></h1>
+          <p class="hero-text">
+            Compare estimated solar system costs, monthly savings and payback time
+            with a simple tool built for homeowners.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#calculator">Start Calculator →</a>
+            <a class="secondary-btn" href="#guide">How it works</a>
+          </div>
+          <div class="trust-row">
+            <div><strong>Simple</strong><small>Easy estimates</small></div>
+            <div><strong>Fast</strong><small>Instant results</small></div>
+            <div><strong>Free</strong><small>No signup needed</small></div>
+          </div>
+        </div>
+        <div class="sun-card">
+          <div class="sun">☀</div>
+          <div class="panel panel-a"></div>
+          <div class="panel panel-b"></div>
+          <div class="house">⌂</div>
+          <div class="card-caption">
+            <strong>Go solar. Save smarter.</strong>
+            <span>Estimate your numbers in seconds.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rates" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">QUICK REFERENCE</p>
+            <h2>Solar system estimates</h2>
+          </div>
+          <p>Indicative figures only. Actual prices vary by panel, inverter, battery, installation and market conditions.</p>
+        </div>
+        <div class="rate-grid">
+          <article class="rate-card"><span>3 kW</span><strong>Small home</strong><p>For lighter household usage.</p><b>Estimate your cost →</b></article>
+          <article class="rate-card featured"><span>5 kW</span><strong>Popular choice</strong><p>Balanced option for many homes.</p><b>Estimate your cost →</b></article>
+          <article class="rate-card"><span>10 kW</span><strong>Larger home</strong><p>For higher electricity demand.</p><b>Estimate your cost →</b></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section calculator-section">
+      <div class="container calc-grid">
+        <div>
+          <p class="eyebrow">SOLAR CALCULATOR</p>
+          <h2>See an estimated payback</h2>
+          <p class="muted">Enter your monthly electricity bill and choose a system size. These are planning estimates, not a quotation.</p>
+          <div class="form">
+            <label>Monthly electricity bill
+              <div class="input-wrap"><span>PKR</span><input id="bill" type="number" min="0" value="30000"></div>
+            </label>
+            <label>Solar system size
+              <select id="size">
+                <option value="3">3 kW</option>
+                <option value="5" selected>5 kW</option>
+                <option value="10">10 kW</option>
+                <option value="15">15 kW</option>
+              </select>
+            </label>
+            <button class="primary-btn full" id="calculate">Calculate savings</button>
+          </div>
+        </div>
+        <div class="result-card">
+          <p>ESTIMATED RESULT</p>
+          <div class="result-main" id="annual">PKR 270,000</div>
+          <span>potential annual electricity savings</span>
+          <div class="result-line"><span>Estimated system cost</span><strong id="cost">PKR 750,000</strong></div>
+          <div class="result-line"><span>Estimated payback</span><strong id="payback">2.8 years</strong></div>
+          <small>*Illustrative calculation using simplified assumptions. Get a professional site survey before purchasing.</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide" class="section">
+      <div class="container">
+        <div class="section-heading centered">
+          <p class="eyebrow">THE BASICS</p>
+          <h2>How solar planning works</h2>
+        </div>
+        <div class="steps">
+          <div><span>01</span><h3>Know your usage</h3><p>Start with your recent electricity bills to understand your typical demand.</p></div>
+          <div><span>02</span><h3>Choose a system</h3><p>Compare system sizes based on your roof, usage and budget.</p></div>
+          <div><span>03</span><h3>Compare the numbers</h3><p>Look at estimated savings, equipment quality and expected payback.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <div><p class="eyebrow">READY TO EXPLORE?</p><h2>Start with your electricity bill.</h2></div>
+        <a class="primary-btn" href="#calculator">Calculate now →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer">
+      <strong>☀ SolarRateHub</strong>
+      <span>© <span id="year"></span> SolarRateHub. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
