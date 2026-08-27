@@ -1,7 +1,167 @@
-const billInput=document.getElementById("bill");const sizeInput=document.getElementById("size");const calculateBtn=document.getElementById("calculate");const annualEl=document.getElementById("annual");const costEl=document.getElementById("cost");const paybackEl=document.getElementById("payback");function money(value){return "PKR "+Math.round(value).toLocaleString("en-PK")}function calculate(){const bill=Math.max(0,Number(billInput.value)||0);const size=Number(sizeInput.value);const coverage={3:.45,5:.65,10:.85,15:.95}[size];const annualSavings=bill*12*coverage;const estimatedCost=size*150000;const payback=annualSavings>0?estimatedCost/annualSavings:0;annualEl.textContent=money(annualSavings);costEl.textContent=money(estimatedCost);paybackEl.textContent=payback?payback.toFixed(1)+" years":"—"}calculateBtn.addEventListener("click",calculate);billInput.addEventListener("input",calculate);sizeInput.addEventListener("change",calculate);document.getElementById("year").textContent=new Date().getFullYear();
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = (id) => document.getElementById(id);
 
-const menuToggle=document.getElementById("menuToggle");const siteMenu=document.getElementById("siteMenu");const menuClose=document.getElementById("menuClose");const menuOverlay=document.getElementById("menuOverlay");const searchToggle=document.getElementById("searchToggle");const searchPanel=document.getElementById("searchPanel");const siteSearch=document.getElementById("siteSearch");const searchClear=document.getElementById("searchClear");const searchStatus=document.getElementById("searchStatus");const menuSearch=document.getElementById("menuSearch");const articleCards=[...document.querySelectorAll(".article-card")];const emptySearch=document.getElementById("emptySearch");
-function openMenu(){siteMenu.classList.add("open");menuOverlay.classList.add("open");siteMenu.setAttribute("aria-hidden","false");menuToggle.setAttribute("aria-expanded","true")}function closeMenu(){siteMenu.classList.remove("open");menuOverlay.classList.remove("open");siteMenu.setAttribute("aria-hidden","true");menuToggle.setAttribute("aria-expanded","false")}menuToggle.addEventListener("click",openMenu);menuClose.addEventListener("click",closeMenu);menuOverlay.addEventListener("click",closeMenu);siteMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",closeMenu));
-function filterArticles(query){const q=query.trim().toLowerCase();let shown=0;articleCards.forEach(card=>{const text=(card.dataset.search||"")+" "+card.textContent.toLowerCase();const match=!q||text.includes(q);card.style.display=match?"":"none";if(match)shown++});emptySearch.hidden=shown!==0||!q;searchStatus.textContent=q?(shown+" article"+(shown===1?"":"s")+" found."):"Search the latest solar guides and categories."}
-searchToggle.addEventListener("click",()=>{const open=!searchPanel.classList.contains("open");searchPanel.classList.toggle("open",open);searchPanel.setAttribute("aria-hidden",String(!open));searchToggle.setAttribute("aria-expanded",String(open));if(open)setTimeout(()=>siteSearch.focus(),80)});siteSearch.addEventListener("input",e=>filterArticles(e.target.value));searchClear.addEventListener("click",()=>{siteSearch.value="";filterArticles("");siteSearch.focus()});menuSearch.addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase();siteMenu.querySelectorAll(".menu-section a").forEach(a=>{a.style.display=!q||a.textContent.toLowerCase().includes(q)?"":"none"})});document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMenu();searchPanel.classList.remove("open");searchToggle.setAttribute("aria-expanded","false")}});
-calculate();
+  // Calculator
+  const billInput = $("bill");
+  const sizeInput = $("size");
+  const calculateBtn = $("calculate");
+  const annualEl = $("annual");
+  const costEl = $("cost");
+  const paybackEl = $("payback");
+
+  const money = (value) => "PKR " + Math.round(value).toLocaleString("en-PK");
+
+  function calculate() {
+    if (!billInput || !sizeInput || !annualEl || !costEl || !paybackEl) return;
+    const bill = Math.max(0, Number(billInput.value) || 0);
+    const size = Number(sizeInput.value);
+    const coverage = { 3: 0.45, 5: 0.65, 10: 0.85, 15: 0.95 }[size] || 0;
+    const annualSavings = bill * 12 * coverage;
+    const estimatedCost = size * 150000;
+    const payback = annualSavings > 0 ? estimatedCost / annualSavings : 0;
+    annualEl.textContent = money(annualSavings);
+    costEl.textContent = money(estimatedCost);
+    paybackEl.textContent = payback ? payback.toFixed(1) + " years" : "—";
+  }
+
+  if (calculateBtn) calculateBtn.addEventListener("click", calculate);
+  if (billInput) billInput.addEventListener("input", calculate);
+  if (sizeInput) sizeInput.addEventListener("change", calculate);
+
+  const year = $("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  // Mobile + desktop menu
+  const menuToggle = $("menuToggle");
+  const siteMenu = $("siteMenu");
+  const menuClose = $("menuClose");
+  const menuOverlay = $("menuOverlay");
+
+  function closeMenu() {
+    if (!siteMenu) return;
+    siteMenu.classList.remove("open");
+    if (menuOverlay) menuOverlay.classList.remove("open");
+    siteMenu.setAttribute("aria-hidden", "true");
+    if (menuToggle) {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open website menu");
+    }
+    document.body.classList.remove("menu-open");
+  }
+
+  function openMenu() {
+    if (!siteMenu) return;
+    siteMenu.classList.add("open");
+    if (menuOverlay) menuOverlay.classList.add("open");
+    siteMenu.setAttribute("aria-hidden", "false");
+    if (menuToggle) {
+      menuToggle.setAttribute("aria-expanded", "true");
+      menuToggle.setAttribute("aria-label", "Close website menu");
+    }
+    document.body.classList.add("menu-open");
+  }
+
+  // Always start closed, even if an old cached DOM state is present.
+  closeMenu();
+  if (menuToggle) menuToggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    siteMenu && siteMenu.classList.contains("open") ? closeMenu() : openMenu();
+  });
+  if (menuClose) menuClose.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeMenu();
+  });
+  if (menuOverlay) menuOverlay.addEventListener("click", closeMenu);
+  if (siteMenu) {
+    siteMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
+    });
+  }
+
+  // Search
+  const searchToggle = $("searchToggle");
+  const searchPanel = $("searchPanel");
+  const siteSearch = $("siteSearch");
+  const searchClear = $("searchClear");
+  const searchStatus = $("searchStatus");
+  const menuSearch = $("menuSearch");
+  const articleCards = [...document.querySelectorAll(".article-card")];
+  const emptySearch = $("emptySearch");
+
+  function closeSearch() {
+    if (!searchPanel) return;
+    searchPanel.classList.remove("open");
+    searchPanel.setAttribute("aria-hidden", "true");
+    if (searchToggle) {
+      searchToggle.setAttribute("aria-expanded", "false");
+      searchToggle.setAttribute("aria-label", "Open search");
+    }
+  }
+
+  function openSearch() {
+    if (!searchPanel) return;
+    searchPanel.classList.add("open");
+    searchPanel.setAttribute("aria-hidden", "false");
+    if (searchToggle) {
+      searchToggle.setAttribute("aria-expanded", "true");
+      searchToggle.setAttribute("aria-label", "Close search");
+    }
+    setTimeout(() => siteSearch && siteSearch.focus(), 100);
+  }
+
+  function filterArticles(query) {
+    const q = query.trim().toLowerCase();
+    let shown = 0;
+    articleCards.forEach((card) => {
+      const text = ((card.dataset.search || "") + " " + card.textContent).toLowerCase();
+      const match = !q || text.includes(q);
+      card.style.display = match ? "" : "none";
+      if (match) shown++;
+    });
+    if (emptySearch) emptySearch.hidden = shown !== 0 || !q;
+    if (searchStatus) {
+      searchStatus.textContent = q
+        ? shown + " article" + (shown === 1 ? "" : "s") + " found."
+        : "Search the latest solar guides and categories.";
+    }
+    if (q) document.getElementById("latest")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  if (searchToggle) searchToggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    searchPanel && searchPanel.classList.contains("open") ? closeSearch() : openSearch();
+  });
+  if (siteSearch) siteSearch.addEventListener("input", (event) => filterArticles(event.target.value));
+  if (searchClear) searchClear.addEventListener("click", () => {
+    if (!siteSearch) return;
+    siteSearch.value = "";
+    filterArticles("");
+    siteSearch.focus();
+  });
+
+  if (menuSearch && siteMenu) {
+    menuSearch.addEventListener("input", (event) => {
+      const q = event.target.value.trim().toLowerCase();
+      siteMenu.querySelectorAll(".menu-section a").forEach((link) => {
+        link.style.display = !q || link.textContent.toLowerCase().includes(q) ? "block" : "none";
+      });
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+      closeSearch();
+    }
+  });
+
+  // Prevent the fixed drawer from being left active by browser restoration.
+  window.addEventListener("pageshow", () => {
+    closeMenu();
+    closeSearch();
+  });
+
+  calculate();
+});
