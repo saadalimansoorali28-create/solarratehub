@@ -3,21 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SolarRateHub - simple solar system pricing, savings and sizing tools.">
-  <title>SolarRateHub | Solar Savings Made Simple</title>
+  <meta name="description" content="SolarRateHub — solar panel prices, inverter rates, solar system costs, accessories, savings and practical solar guides for Pakistan.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://solarratehub.com/">
+  <meta property="og:title" content="SolarRateHub | Solar Prices, Systems & Savings">
+  <meta property="og:description" content="Compare solar panel prices, inverter rates, system estimates and solar guides in one place.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://solarratehub.com/">
+  <title>SolarRateHub | Solar Prices, Systems & Savings</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
     <div class="container nav">
-      <a class="logo" href="/" aria-label="SolarRateHub home"><img src="95129107-17c4-4326-83cd-09252251a676.png" alt="SolarRateHub logo"></a>
-      <nav>
-        <a href="#rates">Rates</a>
+      <a class="logo" href="/" aria-label="SolarRateHub home"><img src="95129107-17c4-4326-83cd-09252251a676.png" alt="SolarRateHub - Solar Prices, Systems and Savings"></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#latest">Latest</a>
+        <a href="#categories">Categories</a>
         <a href="#calculator">Calculator</a>
-        <a href="#guide">Guide</a>
       </nav>
-      <a class="nav-btn" href="#calculator">Calculate</a>
+      <div class="nav-actions">
+        <button class="search-toggle" id="searchToggle" aria-label="Open search" aria-expanded="false">⌕</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open website menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <a class="nav-btn" href="#calculator">Calculate</a>
+      </div>
     </div>
+    <div class="search-panel" id="searchPanel" aria-hidden="true">
+      <div class="container search-inner">
+        <label for="siteSearch">Search SolarRateHub</label>
+        <div class="search-box"><input id="siteSearch" type="search" placeholder="Search solar prices, inverters, systems..." autocomplete="off"><button id="searchClear" type="button">Clear</button></div>
+        <p id="searchStatus">Search the latest solar guides and categories.</p>
+      </div>
+    </div>
+    <aside class="site-menu" id="siteMenu" aria-hidden="true">
+      <div class="menu-head"><strong>SolarRateHub</strong><button id="menuClose" aria-label="Close menu">×</button></div>
+      <div class="menu-search"><input id="menuSearch" type="search" placeholder="Search menu..."></div>
+      <div class="menu-section"><span>MAIN</span><a href="/">Home</a><a href="#latest">Latest Articles</a><a href="#categories">Categories</a><a href="#calculator">Solar Calculator</a></div>
+      <div class="menu-section"><span>SOLAR PRICES</span><a href="#solar-panels">Solar Panel Prices</a><a href="#inverters">Solar Inverter Rates</a><a href="#accessories">Solar Accessories</a><a href="#systems">Solar System Prices</a><a href="#batteries">Solar Batteries</a></div>
+      <div class="menu-section"><span>GUIDES & INFORMATION</span><a href="#guides">Solar Guides</a><a href="#news">Solar News</a><a href="#savings">Savings & Payback</a><a href="#faq">FAQ</a></div>
+      <div class="menu-section"><span>ABOUT</span><a href="#about">About SolarRateHub</a><a href="#contact">Contact</a><a href="#disclaimer">Disclaimer</a><a href="#privacy">Privacy Policy</a></div>
+    </aside>
+    <div class="menu-overlay" id="menuOverlay"></div>
   </header>
 
   <main id="home">
@@ -26,111 +52,60 @@
         <div>
           <p class="eyebrow">SMART SOLAR PLANNING</p>
           <h1>Make your solar decision with <span>confidence.</span></h1>
-          <p class="hero-text">
-            Compare estimated solar system costs, monthly savings and payback time
-            with a simple tool built for homeowners.
-          </p>
-          <div class="hero-actions">
-            <a class="primary-btn" href="#calculator">Start Calculator →</a>
-            <a class="secondary-btn" href="#guide">How it works</a>
-          </div>
-          <div class="trust-row">
-            <div><strong>Simple</strong><small>Easy estimates</small></div>
-            <div><strong>Fast</strong><small>Instant results</small></div>
-            <div><strong>Free</strong><small>No signup needed</small></div>
-          </div>
+          <p class="hero-text">Compare solar panel prices, inverter rates, system costs, monthly savings and payback time with practical tools and guides.</p>
+          <div class="hero-actions"><a class="primary-btn" href="#calculator">Start Calculator →</a><a class="secondary-btn" href="#latest">Read Latest Articles</a></div>
+          <div class="trust-row"><div><strong>Prices</strong><small>Updated guides</small></div><div><strong>Systems</strong><small>Size & cost</small></div><div><strong>Free</strong><small>No signup needed</small></div></div>
         </div>
-        <div class="sun-card">
-          <div class="sun">☀</div>
-          <div class="panel panel-a"></div>
-          <div class="panel panel-b"></div>
-          <div class="house">⌂</div>
-          <div class="card-caption">
-            <strong>Go solar. Save smarter.</strong>
-            <span>Estimate your numbers in seconds.</span>
-          </div>
-        </div>
+        <div class="sun-card"><div class="sun">☀</div><div class="panel panel-a"></div><div class="panel panel-b"></div><div class="house">⌂</div><div class="card-caption"><strong>Go solar. Save smarter.</strong><span>Explore prices, equipment and savings.</span></div></div>
       </div>
     </section>
 
-    <section id="rates" class="section">
+    <section id="latest" class="section latest-section">
       <div class="container">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">QUICK REFERENCE</p>
-            <h2>Solar system estimates</h2>
-          </div>
-          <p>Indicative figures only. Actual prices vary by panel, inverter, battery, installation and market conditions.</p>
+        <div class="section-heading"><div><p class="eyebrow">LATEST FROM SOLARRATEHUB</p><h2>Solar news, prices & guides</h2></div><p>New articles are featured here so visitors and search engines can easily discover your latest solar content.</p></div>
+        <div class="article-grid" id="articleGrid">
+          <article class="article-card" data-search="solar panel price pakistan today solar panel rates latest price"><img src="a463b56701b3453b4ff0084d56f22959.jpg" alt="Solar panel prices in Pakistan"><div class="article-body"><span class="tag">Solar Panel Prices</span><h3>Solar Panel Price in Pakistan Today</h3><p>Latest solar panel pricing guide, factors affecting rates and what buyers should compare.</p><a href="/solar-panel-price-pakistan-today.html">Read article →</a></div></article>
+          <article class="article-card" data-search="5kw solar system price pakistan 2026 solar system cost"><img src="543032bb0d6c412eebf8efd29dc65c52.jpg" alt="5kW solar system price guide"><div class="article-body"><span class="tag">Solar Systems</span><h3>5kW Solar System Price in Pakistan 2026</h3><p>Explore estimated 5kW system costs, components, savings considerations and payback.</p><a href="/5kw-solar-system-price-pakistan-2026.html">Read article →</a></div></article>
+          <article class="article-card" data-search="10kw solar system price pakistan 2026 large home solar system"><img src="472c30a4e68d53367fc1914e5073f55b.jpg" alt="10kW solar system price guide"><div class="article-body"><span class="tag">Solar Systems</span><h3>10kW Solar System Price in Pakistan 2026</h3><p>A practical guide to estimated 10kW system pricing, equipment and planning.</p><a href="/10kw-solar-system-price-pakistan-2026.html">Read article →</a></div></article>
         </div>
-        <div class="rate-grid">
-          <article class="rate-card"><span>3 kW</span><strong>Small home</strong><p>For lighter household usage.</p><b>Estimate your cost →</b></article>
-          <article class="rate-card featured"><span>5 kW</span><strong>Popular choice</strong><p>Balanced option for many homes.</p><b>Estimate your cost →</b></article>
-          <article class="rate-card"><span>10 kW</span><strong>Larger home</strong><p>For higher electricity demand.</p><b>Estimate your cost →</b></article>
+        <div class="empty-search" id="emptySearch" hidden><strong>No matching article found.</strong><p>Try another search such as “solar panel”, “5kW”, “10kW” or “system price”.</p></div>
+      </div>
+    </section>
+
+    <section id="categories" class="section categories-section">
+      <div class="container">
+        <div class="section-heading centered"><p class="eyebrow">EXPLORE THE HUB</p><h2>Everything solar, organized</h2><p>Use these sections as the main content structure for SolarRateHub.</p></div>
+        <div class="category-grid">
+          <a class="category-card" id="solar-panels" href="/solar-panel-price-pakistan-today.html"><span class="category-icon">▦</span><h3>Solar Panel Prices</h3><p>Panel rates, brands, wattage and buying guides.</p><b>Explore prices →</b></a>
+          <a class="category-card" id="inverters" href="#latest"><span class="category-icon">⌁</span><h3>Solar Inverter Rates</h3><p>Inverter prices, types, features and comparisons.</p><b>View inverter guides →</b></a>
+          <a class="category-card" id="systems" href="/5kw-solar-system-price-pakistan-2026.html"><span class="category-icon">⌂</span><h3>Solar System Prices</h3><p>3kW, 5kW, 10kW and larger system estimates.</p><b>Compare systems →</b></a>
+          <a class="category-card" id="accessories" href="#guides"><span class="category-icon">⚙</span><h3>Solar Accessories</h3><p>Mounting, cables, breakers, protections and other parts.</p><b>See accessories →</b></a>
+          <a class="category-card" id="batteries" href="#guides"><span class="category-icon">▰</span><h3>Solar Batteries</h3><p>Battery types, storage planning and price guides.</p><b>Explore batteries →</b></a>
+          <a class="category-card" id="news" href="#latest"><span class="category-icon">✦</span><h3>Solar News</h3><p>Market updates, policy developments and daily solar trends.</p><b>Read solar news →</b></a>
+          <a class="category-card" id="guides" href="#guide"><span class="category-icon">?</span><h3>Solar Guides</h3><p>Beginner-friendly explainers for choosing and sizing solar.</p><b>Read guides →</b></a>
+          <a class="category-card" id="savings" href="#calculator"><span class="category-icon">%</span><h3>Savings & Payback</h3><p>Estimate savings and understand your solar payback period.</p><b>Calculate savings →</b></a>
         </div>
       </div>
     </section>
 
     <section id="calculator" class="section calculator-section">
       <div class="container calc-grid">
-        <div>
-          <p class="eyebrow">SOLAR CALCULATOR</p>
-          <h2>See an estimated payback</h2>
-          <p class="muted">Enter your monthly electricity bill and choose a system size. These are planning estimates, not a quotation.</p>
-          <div class="form">
-            <label>Monthly electricity bill
-              <div class="input-wrap"><span>PKR</span><input id="bill" type="number" min="0" value="30000"></div>
-            </label>
-            <label>Solar system size
-              <select id="size">
-                <option value="3">3 kW</option>
-                <option value="5" selected>5 kW</option>
-                <option value="10">10 kW</option>
-                <option value="15">15 kW</option>
-              </select>
-            </label>
-            <button class="primary-btn full" id="calculate">Calculate savings</button>
-          </div>
-        </div>
-        <div class="result-card">
-          <p>ESTIMATED RESULT</p>
-          <div class="result-main" id="annual">PKR 270,000</div>
-          <span>potential annual electricity savings</span>
-          <div class="result-line"><span>Estimated system cost</span><strong id="cost">PKR 750,000</strong></div>
-          <div class="result-line"><span>Estimated payback</span><strong id="payback">2.8 years</strong></div>
-          <small>*Illustrative calculation using simplified assumptions. Get a professional site survey before purchasing.</small>
-        </div>
+        <div><p class="eyebrow">SOLAR CALCULATOR</p><h2>See an estimated payback</h2><p class="muted">Enter your monthly electricity bill and choose a system size. These are planning estimates, not a quotation.</p><div class="form"><label>Monthly electricity bill<div class="input-wrap"><span>PKR</span><input id="bill" type="number" min="0" value="30000"></div></label><label>Solar system size<select id="size"><option value="3">3 kW</option><option value="5" selected>5 kW</option><option value="10">10 kW</option><option value="15">15 kW</option></select></label><button class="primary-btn full" id="calculate">Calculate savings</button></div></div>
+        <div class="result-card"><p>ESTIMATED RESULT</p><div class="result-main" id="annual">PKR 270,000</div><span>potential annual electricity savings</span><div class="result-line"><span>Estimated system cost</span><strong id="cost">PKR 750,000</strong></div><div class="result-line"><span>Estimated payback</span><strong id="payback">2.8 years</strong></div><small>*Illustrative calculation using simplified assumptions. Get a professional site survey before purchasing.</small></div>
       </div>
     </section>
 
-    <section id="guide" class="section">
-      <div class="container">
-        <div class="section-heading centered">
-          <p class="eyebrow">THE BASICS</p>
-          <h2>How solar planning works</h2>
-        </div>
-        <div class="steps">
-          <div><span>01</span><h3>Know your usage</h3><p>Start with your recent electricity bills to understand your typical demand.</p></div>
-          <div><span>02</span><h3>Choose a system</h3><p>Compare system sizes based on your roof, usage and budget.</p></div>
-          <div><span>03</span><h3>Compare the numbers</h3><p>Look at estimated savings, equipment quality and expected payback.</p></div>
-        </div>
-      </div>
-    </section>
+    <section id="guide" class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">THE BASICS</p><h2>How solar planning works</h2></div><div class="steps"><div><span>01</span><h3>Know your usage</h3><p>Start with your recent electricity bills to understand your typical demand.</p></div><div><span>02</span><h3>Choose a system</h3><p>Compare system sizes based on your roof, usage and budget.</p></div><div><span>03</span><h3>Compare the numbers</h3><p>Look at estimated savings, equipment quality and expected payback.</p></div></div></div></section>
 
-    <section class="cta">
-      <div class="container cta-inner">
-        <div><p class="eyebrow">READY TO EXPLORE?</p><h2>Start with your electricity bill.</h2></div>
-        <a class="primary-btn" href="#calculator">Calculate now →</a>
-      </div>
-    </section>
+    <section id="faq" class="section info-section"><div class="container"><div class="section-heading centered"><p class="eyebrow">FAQ</p><h2>Common solar questions</h2></div><div class="faq-grid"><details><summary>How much does a solar system cost?</summary><p>Cost depends on system size, panels, inverter, batteries, installation and market conditions. Use our calculator for a planning estimate.</p></details><details><summary>Which solar system size do I need?</summary><p>Your electricity consumption, roof space and budget all matter. Start with recent bills and compare multiple system sizes.</p></details><details><summary>Are the prices on SolarRateHub quotations?</summary><p>No. Prices and calculator outputs are estimates for research and planning. Always confirm current supplier pricing and installation details.</p></details></div></div></section>
+
+    <section id="about" class="section mini-info"><div class="container"><p class="eyebrow">ABOUT</p><h2>About SolarRateHub</h2><p>SolarRateHub is a practical solar information hub focused on prices, systems, equipment, savings and easy-to-understand solar planning.</p></div></section>
+    <section id="contact" class="section mini-info"><div class="container"><p class="eyebrow">CONTACT</p><h2>Contact SolarRateHub</h2><p>For corrections, updates or general website enquiries, use the contact method provided by the site owner.</p></div></section>
+    <section id="disclaimer" class="section mini-info"><div class="container"><p class="eyebrow">DISCLAIMER</p><h2>Pricing disclaimer</h2><p>All prices, savings figures and payback calculations on SolarRateHub are estimates for informational and planning purposes. Actual market prices can change and vary by location, supplier, equipment, installation, taxes and specifications. Verify current prices with qualified suppliers before making a purchase.</p></div></section>
+    <section id="privacy" class="section mini-info"><div class="container"><p class="eyebrow">PRIVACY</p><h2>Privacy Policy</h2><p>SolarRateHub is designed to provide publicly accessible solar information. If analytics, forms or other third-party services are added, this section should be updated with the applicable data practices.</p></div></section>
   </main>
 
-  <footer>
-    <div class="container footer">
-      <strong>SolarRateHub</strong>
-      <span>© <span id="year"></span> SolarRateHub. All rights reserved.</span>
-    </div>
-  </footer>
-
+  <footer><div class="container footer"><div><strong>SolarRateHub</strong><span>Solar Prices | Systems | Savings</span></div><div class="footer-links"><a href="#about">About</a><a href="#contact">Contact</a><a href="#disclaimer">Disclaimer</a><a href="#privacy">Privacy</a></div><span>© <span id="year"></span> SolarRateHub. All rights reserved.</span></div></footer>
   <script src="script.js"></script>
 </body>
 </html>
