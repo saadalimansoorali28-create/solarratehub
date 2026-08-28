@@ -1,14 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (id) => document.getElementById(id);
 
-  // Calculator
   const billInput = $("bill");
   const sizeInput = $("size");
   const calculateBtn = $("calculate");
   const annualEl = $("annual");
   const costEl = $("cost");
   const paybackEl = $("payback");
-
   const money = (value) => "PKR " + Math.round(value).toLocaleString("en-PK");
 
   function calculate() {
@@ -31,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = $("year");
   if (year) year.textContent = new Date().getFullYear();
 
-  // Mobile + desktop menu
   const menuToggle = $("menuToggle");
   const siteMenu = $("siteMenu");
   const menuClose = $("menuClose");
@@ -61,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("menu-open");
   }
 
-  // Always start closed, even if an old cached DOM state is present.
   closeMenu();
   if (menuToggle) menuToggle.addEventListener("click", (event) => {
     event.preventDefault();
@@ -73,13 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
     closeMenu();
   });
   if (menuOverlay) menuOverlay.addEventListener("click", closeMenu);
-  if (siteMenu) {
-    siteMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => closeMenu());
-    });
-  }
+  if (siteMenu) siteMenu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
 
-  // Search
   const searchToggle = $("searchToggle");
   const searchPanel = $("searchPanel");
   const siteSearch = $("siteSearch");
@@ -107,25 +98,26 @@ document.addEventListener("DOMContentLoaded", () => {
       searchToggle.setAttribute("aria-expanded", "true");
       searchToggle.setAttribute("aria-label", "Close search");
     }
-    setTimeout(() => siteSearch && siteSearch.focus(), 100);
+    requestAnimationFrame(() => siteSearch && siteSearch.focus());
   }
 
+  let filterFrame = 0;
   function filterArticles(query) {
-    const q = query.trim().toLowerCase();
-    let shown = 0;
-    articleCards.forEach((card) => {
-      const text = ((card.dataset.search || "") + " " + card.textContent).toLowerCase();
-      const match = !q || text.includes(q);
-      card.style.display = match ? "" : "none";
-      if (match) shown++;
-    });
-    if (emptySearch) emptySearch.hidden = shown !== 0 || !q;
-    if (searchStatus) {
-      searchStatus.textContent = q
+    cancelAnimationFrame(filterFrame);
+    filterFrame = requestAnimationFrame(() => {
+      const q = query.trim().toLowerCase();
+      let shown = 0;
+      articleCards.forEach((card) => {
+        const text = ((card.dataset.search || "") + " " + card.textContent).toLowerCase();
+        const match = !q || text.includes(q);
+        card.hidden = !match;
+        if (match) shown++;
+      });
+      if (emptySearch) emptySearch.hidden = shown !== 0 || !q;
+      if (searchStatus) searchStatus.textContent = q
         ? shown + " article" + (shown === 1 ? "" : "s") + " found."
         : "Search the latest solar guides and categories.";
-    }
-    if (q) document.getElementById("latest")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 
   if (searchToggle) searchToggle.addEventListener("click", (event) => {
@@ -145,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menuSearch.addEventListener("input", (event) => {
       const q = event.target.value.trim().toLowerCase();
       siteMenu.querySelectorAll(".menu-section a").forEach((link) => {
-        link.style.display = !q || link.textContent.toLowerCase().includes(q) ? "block" : "none";
+        link.hidden = !!q && !link.textContent.toLowerCase().includes(q);
       });
     });
   }
@@ -157,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Prevent the fixed drawer from being left active by browser restoration.
   window.addEventListener("pageshow", () => {
     closeMenu();
     closeSearch();
