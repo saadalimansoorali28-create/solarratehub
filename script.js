@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeSearch();
   });
 
-  // Latest Inverters section: injected without replacing the existing homepage content.
+  // Latest Inverters section: injected without replacing existing homepage content.
   const homeMain = document.querySelector("main#home");
   const latestSection = document.querySelector("#latest");
   if (homeMain && latestSection && !document.querySelector("#latest-inverters")) {
@@ -170,20 +170,27 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <p>Browse inverter brands and models with specifications and USA price references.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
           <a href="/inverters.html#eg4" style="text-decoration:none;color:inherit;border:1px solid #e5eae7;border-radius:18px;padding:22px;background:#fff;box-shadow:0 8px 28px rgba(20,35,29,.05)">
             <span class="tag">EG4</span><h3>EG4 6000XP</h3><p>6kW off-grid inverter · 48V · dual MPPT · 8kW PV input</p><strong style="color:#16834b">$1,449.99 USD reference</strong><p style="color:#16834b;font-weight:700">View EG4 models →</p>
           </a>
           <a href="/inverters.html#goodwe" style="text-decoration:none;color:inherit;border:1px solid #e5eae7;border-radius:18px;padding:22px;background:#fff;box-shadow:0 8px 28px rgba(20,35,29,.05)">
-            <span class="tag">GoodWe</span><h3>GoodWe ES Uniq</h3><p>ES Uniq hybrid inverter family with model-by-model specifications.</p><strong style="color:#16834b">USA price reference</strong><p style="color:#16834b;font-weight:700">View GoodWe models →</p>
+            <span class="tag">GoodWe</span><h3>GoodWe ES Uniq</h3><p>ES Uniq hybrid inverter family with model-by-model specifications.</p><strong style="color:#16834b">USD price reference pending verification</strong><p style="color:#16834b;font-weight:700">View GoodWe models →</p>
           </a>
           <a href="/inverters.html#inverex" style="text-decoration:none;color:inherit;border:1px solid #e5eae7;border-radius:18px;padding:22px;background:#fff;box-shadow:0 8px 28px rgba(20,35,29,.05)">
-            <span class="tag">Inverex</span><h3>Nitrox 10kW</h3><p>Nitrox hybrid inverter family with model and specification references.</p><strong style="color:#16834b">USA price reference</strong><p style="color:#16834b;font-weight:700">View Inverex models →</p>
+            <span class="tag">Inverex</span><h3>Nitrox 10kW</h3><p>Nitrox hybrid inverter family with model and specification references.</p><strong style="color:#16834b">USD price reference pending verification</strong><p style="color:#16834b;font-weight:700">View Inverex models →</p>
           </a>
         </div>
         <div style="margin-top:18px"><a class="primary-btn" href="/inverters.html">Open Inverter Hub →</a></div>
       </div>`;
     latestSection.insertAdjacentElement("afterend", section);
+  }
+
+  // Make the existing inverter category and menu item open the dedicated inverter hub.
+  const inverterCategory = document.querySelector("#inverters");
+  if (inverterCategory) inverterCategory.href = "/inverters.html";
+  if (siteMenu) {
+    siteMenu.querySelectorAll('a[href="#inverters"]').forEach((link) => { link.href = "/inverters.html"; });
   }
 
   calculate();
