@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (id) => document.getElementById(id);
   const billInput=$("bill"),sizeInput=$("size"),calculateBtn=$("calculate"),annualEl=$("annual"),costEl=$("cost"),paybackEl=$("payback");
-  const money=v=>"PKR "+Math.round(v).toLocaleString("en-PK");
-  function calculate(){if(!billInput||!sizeInput||!annualEl||!costEl||!paybackEl)return;const bill=Math.max(0,Number(billInput.value)||0),size=Number(sizeInput.value),coverage={3:.45,5:.65,10:.85,15:.95}[size]||0,s=bill*12*coverage,c=size*150000,p=s>0?c/s:0;annualEl.textContent=money(s);costEl.textContent=money(c);paybackEl.textContent=p?p.toFixed(1)+" years":"—"}
+  const money=v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(Math.round(v));
+  const currencyLabel=billInput?.closest(".input-wrap")?.querySelector("span");
+  if(currencyLabel)currencyLabel.textContent="$";
+  if(billInput&&(!billInput.value||Number(billInput.value)>=10000))billInput.value="300";
+  function calculate(){if(!billInput||!sizeInput||!annualEl||!costEl||!paybackEl)return;const bill=Math.max(0,Number(billInput.value)||0),size=Number(sizeInput.value),coverage={3:.45,5:.65,10:.85,15:.95}[size]||0,s=bill*12*coverage,c=size*3150,p=s>0?c/s:0;annualEl.textContent=money(s);costEl.textContent=money(c);paybackEl.textContent=p?p.toFixed(1)+" years":"—"}
   if(calculateBtn)calculateBtn.addEventListener("click",calculate);if(billInput)billInput.addEventListener("input",calculate);if(sizeInput)sizeInput.addEventListener("change",calculate);
   const year=$("year");if(year)year.textContent=new Date().getFullYear();
   const menuToggle=$("menuToggle"),siteMenu=$("siteMenu"),menuClose=$("menuClose"),menuOverlay=$("menuOverlay");
