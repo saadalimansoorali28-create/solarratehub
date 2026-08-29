@@ -1,0 +1,50 @@
+name: Add AdSense verification code
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/workflows/add-adsense-code.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  inject-adsense:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Insert AdSense code into homepage head
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+          snippet = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8157595264481186" crossorigin="anonymous"></script>'
+
+          if snippet not in html:
+              if '<head>' not in html:
+                  raise SystemExit('Could not find <head> in index.html')
+              html = html.replace('<head>', '<head>' + snippet, 1)
+              path.write_text(html, encoding='utf-8')
+              print('AdSense code inserted.')
+          else:
+              print('AdSense code already present.')
+          PY
+
+      - name: Commit and push if changed
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'Add Google AdSense verification code [skip ci]'
+            git push
+          fi
