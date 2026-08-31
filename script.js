@@ -25,5 +25,28 @@ document.addEventListener("DOMContentLoaded", () => {
   if(latestSection&&!document.querySelector("#aug29-solar-rate-card")){const card=document.createElement("article");card.className="article-card";card.id="aug29-solar-rate-card";card.dataset.search="solar panel price today August 29 2026 LONGi Canadian Solar JA Solar Inverex solar rate";card.innerHTML=`<img src="solarrate.png" alt="Solar panel prices today August 29 2026" loading="lazy"><div class="article-body"><span class="tag">Solar Panel Prices</span><h3>Solar Panel Prices Today: August 29, 2026</h3><p>Compare featured LONGi, Canadian Solar, JA Solar and Inverex reference rates and learn what affects solar panel pricing.</p><a href="/solar-panel-prices-august-29-2026.html">Read article →</a></div>`;const grid=latestSection.querySelector("#articleGrid");if(grid)grid.prepend(card)}
   if(latestSection&&!document.querySelector("#us-foreign-power-equipment-card")){const card=document.createElement("article");card.className="article-card";card.id="us-foreign-power-equipment-card";card.dataset.search="US bans foreign-made power equipment solar inverter battery 2026 grid security news";card.innerHTML=`<img src="1787974583367.png" alt="U.S. restrictions on certain foreign-made power equipment affecting solar inverters and batteries" loading="lazy"><div class="article-body"><span class="tag">U.S. Solar News</span><h3>U.S. Restricts Certain Foreign-Made Power Equipment</h3><p>What the August 26, 2026 executive order could mean for qualifying grid-connected solar inverters, battery storage and related equipment.</p><a href="/us-restricts-foreign-power-equipment-solar-inverters-batteries-2026.html">Read article →</a></div>`;const grid=latestSection.querySelector("#articleGrid");if(grid)grid.prepend(card)}
   if(latestSection&&!document.querySelector("#aug29-10kw-usa-card")){const card=document.createElement("article");card.className="article-card";card.id="aug29-10kw-usa-card";card.dataset.search="10kW solar system cost USA 2026 $20000 $30000 solar system price American home solar installation cost";card.innerHTML=`<img src="1788010905590.png" alt="10kW solar system cost in the USA 2026" loading="lazy"><div class="article-body"><span class="tag">USA Solar Systems</span><h3>How Much Does a 10kW Solar System Cost in the USA in 2026?</h3><p>A practical guide to the $20,000–$30,000 planning range, equipment, installation, batteries and buying considerations.</p><a href="/10kw-solar-system-cost-usa-2026.html">Read article →</a></div>`;const grid=latestSection.querySelector("#articleGrid");if(grid)grid.prepend(card)}
+
+  // Performance: reserve image space and prioritize the first visible article image.
+  const articleImages=[...document.querySelectorAll(".article-card img")];
+  articleImages.forEach((img,index)=>{
+    if(!img.hasAttribute("width"))img.setAttribute("width","1200");
+    if(!img.hasAttribute("height"))img.setAttribute("height","675");
+    if(!img.hasAttribute("sizes"))img.setAttribute("sizes","(max-width: 600px) 92vw, (max-width: 900px) 45vw, 360px");
+    if(!img.hasAttribute("decoding"))img.setAttribute("decoding","async");
+    if(index===0){
+      img.setAttribute("loading","eager");
+      img.setAttribute("fetchpriority","high");
+    }else if(!img.hasAttribute("loading")){
+      img.setAttribute("loading","lazy");
+    }
+  });
+
+  // Keep the visible inverter cards stable when their images load.
+  document.querySelectorAll("#inverter-hub-home img").forEach(img=>{
+    if(!img.hasAttribute("width"))img.setAttribute("width","600");
+    if(!img.hasAttribute("height"))img.setAttribute("height","600");
+    if(!img.hasAttribute("decoding"))img.setAttribute("decoding","async");
+  });
+
   calculate();
 });
