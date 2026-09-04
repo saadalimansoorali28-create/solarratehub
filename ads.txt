@@ -1,1 +1,110 @@
+#ads.txt https://solarratehub.com
+
+#updated 09.04.2026
+
+ownerdomain=solarratehub.com
+managerdomain=newormedia.com
+contact=hello@newormedia.com
+
+#Sovrn
+lijit.com, 217352, DIRECT, fafdf38b16bf6b2b #SOVRN
+lijit.com, 217352-eb, DIRECT, fafdf38b16bf6b2b #SOVRN
+openx.com, 538959099, RESELLER, 6a698e2ec38604c6
+pubmatic.com, 137711, RESELLER, 5d62403b186f2ace
+pubmatic.com, 156212, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 17960, RESELLER, 0bfd66d529a55807
+appnexus.com, 1019, RESELLER, f5ab79cb980f11d1
+
+#OpenX
+openx.com, 539824308, DIRECT, 6a698e2ec38604c6
+
+#Conversant Media
+conversantmedia.com, 41812, DIRECT, 03113cd04947736d
+appnexus.com, 4052, RESELLER
+contextweb.com, 561998, RESELLER, 89ff185a4c4e857c
+lijit.com, 411121, RESELLER, fafdf38b16bf6b2b #SOVRN
+openx.com, 540031703, RESELLER, 6a698e2ec38604c6
+pubmatic.com, 158100, RESELLER, 5d62403b186f2ace
+rubiconproject.com, 23644, RESELLER, 0bfd66d529a55807
+yahoo.com, 55771, RESELLER, e1a5b5b6e3255540
+admanmedia.com, 2050, RESELLER
+appnerve.com, 187287, RESELLER
+conversantmedia.com, 100658, RESELLER, 03113cd04947736d
+conversantmedia.com, 100660, RESELLER, 03113cd04947736d
+conversantmedia.com, 100661, RESELLER, 03113cd04947736d
+conversantmedia.com, 100662, RESELLER, 03113cd04947736d
+conversantmedia.com, 100663, RESELLER, 03113cd04947736d
+conversantmedia.com, 100670, RESELLER, 03113cd04947736d
+conversantmedia.com, 100671, RESELLER, 03113cd04947736d
+conversantmedia.com, 100672, RESELLER, 03113cd04947736d
+conversantmedia.com, 100677, RESELLER, 03113cd04947736d
+conversantmedia.com, 100688, RESELLER, 03113cd04947736d
+conversantmedia.com, 100691, RESELLER, 03113cd04947736d
+conversantmedia.com, 100659, RESELLER, 03113cd04947736d
+
+#Amazon A9
+aps.amazon.com, 094e2c86-72d9-47d6-a647-d95ce39ad4c7, DIRECT
+sovrn.com, 217352, DIRECT, fafdf38b16bf6b2b
+lijit.com, 217352, DIRECT, fafdf38b16bf6b2b
+rubiconproject.com, 18020, RESELLER, 0bfd66d529a55807
+openx.com, 540191398, RESELLER, 6a698e2ec38604c6
+appnexus.com, 1908, RESELLER, f5ab79cb980f11d1
+smaato.com, 110004504, DIRECT, 07bcf65f187117b4
+ad-generation.jp, 12474, RESELLER, 7f4ea9029ac04e53
+districtm.io, 100962, RESELLER, 3fd707be9c4527c3
+yieldmo.com, 2719019867620450718, RESELLER
+gumgum.com, 14141, RESELLER, ffdef49475d318a9
+admanmedia.com, 726, RESELLER
+sharethrough.com, 3a0f657b, DIRECT, d53b998a7bd4ecd2
+emxdgt.com, 2009, RESELLER, 1e1d41537f7cad7f
+contextweb.com, 562541, RESELLER, 89ff185a4c4e857c
+smartadserver.com, 4125, RESELLER, 060d053dcf45cbf3
+
+#RhythmOne/Unruly
+video.unrulymedia.com, 2310154583, DIRECT
+
+#Rubicon
+rubiconproject.com, 17822, DIRECT, 0bfd66d529a55807
+rubiconproject.com, 17822, RESELLER, 0bfd66d529a55807
+
+#NextMillennium
+nextmillennium.io, 15882, DIRECT, 65bd090fa4a1e3d6
+admagnetix.io, 200954, DIRECT
+appnexus.com, 9284, DIRECT, f5ab79cb980f11d1
+appnexus.com, 15799, DIRECT, f5ab79cb980f11d1
+rubiconproject.com, 17888, RESELLER, 0bfd66d529a55807
+pubmatic.com, 157577, DIRECT, 5d62403b186f2ace
+indexexchange.com, 194648, RESELLER, 50b1c356f2c5c8fc
+openx.com, 540224251, DIRECT, 6a698e2ec38604c6
+33across.com, 0010b00002e4MRRAA2, DIRECT, bbea06d9c4d2853c
+yieldmo.com, 2230523609997805235, DIRECT
+
+#33Across
+33across.com, 0010b00002Mpn7AAAR, DIRECT, bbea06d9c4d2853c
+appnexus.com, 10239, RESELLER, f5ab79cb980f11d1
+rubiconproject.com, 16414, RESELLER, 0bfd66d529a55807
+pubmatic.com, 156423, RESELLER, 5d62403b186f2ace
+yahoo.com, 57289, RESELLER, e1a5b5b6e3255540
+conversantmedia.com, 100141, DIRECT
+indexexchange.com, 191973, RESELLER, 50b1c356f2c5c8fc
+openx.com, 537120563, RESELLER, 6a698e2ec38604c6
+
+#TripleLift
+triplelift.com, 7205, DIRECT, 6c33edb13117fd86
+
+#Newor Media Adx
+google.com, pub-4641608711979091, RESELLER, f08c47fec0942fa0
+
+#Teads
+teads.tv, 19014, DIRECT, 15a9c44f6d26cbe1
+
+#PubMatic
+pubmatic.com, 160082, RESELLER, 5d62403b186f2ace
+pubmatic.com, 160131, RESELLER, 5d62403b186f2ace
+pubmatic.com, 161855, RESELLER, 5d62403b186f2ace
+
+#Misc
 google.com, pub-8157595264481186, DIRECT, f08c47fec0942fa0
+
+#Newor Media
+newormedia.com, c63c9586-b3f2-4bca-9e6c-6aa52e32f237, DIRECT
