@@ -56,30 +56,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if(siteMenu){siteMenu.querySelectorAll('a[href="#solar-panels"]').forEach(a=>a.href="/solar-panel-prices.html");siteMenu.querySelectorAll('a[href="#inverters"]').forEach(a=>a.href="/inverters.html");siteMenu.querySelectorAll('a[href="#accessories"]').forEach(a=>a.href="/solar-accessories.html");siteMenu.querySelectorAll('a[href="#systems"]').forEach(a=>a.href="/solar-system-prices.html");siteMenu.querySelectorAll('a[href="#batteries"]').forEach(a=>a.href="/solar-batteries.html");siteMenu.querySelectorAll('a[href="#guides"]').forEach(a=>a.href="/solar-inverter-guides.html");siteMenu.querySelectorAll('a[href="#news"]').forEach(a=>a.href="/solar-news.html")}
   document.addEventListener("error",e=>{const img=e.target;if(img?.tagName==="IMG"&&img.closest(".article-card")&&!img.dataset.fallback){img.dataset.fallback="1";img.src="/95129107-17c4-4326-83cd-09252251a676.png";img.style.objectFit="contain";img.style.background="#f5f8f6"}},true);
   calculate();
-});
 
-/* Automatic article feed. Sitemap remains the source of truth, but homepage discovery is deferred until after the critical page load. */
-(function(){
-  const EXCLUDED=new Set(["/","/index.html","/solar-articles.html","/solar-news.html","/solar-batteries.html","/solar-inverter-guides.html","/inverters.html","/ev-hub.html","/solar-panel-prices.html","/solar-accessories.html","/solar-system-prices.html","/paid-articles.html","/privacy-policy.html","/contact.html","/disclaimer.html","/about.html"]);
-  const clean=s=>{try{return new URL(s,location.origin).pathname}catch(e){return s}};
-  const text=(doc,sel)=>doc.querySelector(sel)?.textContent?.trim()||"";
-  const normalizeCategory=raw=>{const s=(raw||"").toLowerCase();if(/ev|phev|charging|jetour/.test(s))return "EV Hub";if(/inverter|eg4|wechselrichter/.test(s))return "Solar Inverter Rates";if(/battery|powerwall|storage/.test(s))return "Solar Batteries";if(/system|10kw|5kw|3kw|12kw|home energy system/.test(s))return "Solar System Prices";if(/loan|financ|saving|payback/.test(s))return "Savings & Payback";if(/news|market|policy|tariff|trade|restriction|ban/.test(s))return "Solar News";if(/accessor|cable|breaker|mount/.test(s))return "Solar Accessories";if(/panel|price|prices|rate|singapore|india|china|germany|pakistan|usa|uk/.test(s))return "Solar Panel Prices";return "Solar Guides"};
-  const firstImage=doc=>doc.querySelector("img.hero-image,img.hero,img[alt]")?.getAttribute("src")||"";
-  async function readArticle(item){const path=clean(item.loc);if(EXCLUDED.has(path)||path.includes("sitemap"))return null;try{const r=await fetch(path,{cache:"default"});if(!r.ok)return null;const doc=new DOMParser().parseFromString(await r.text(),"text/html");const title=text(doc,"h1")||text(doc,"title");if(!title)return null;const rawCat=text(doc,".tag")||text(doc,".meta");const description=doc.querySelector('meta[name="description"]')?.content||text(doc,"main p")||"";const date=item.lastmod||text(doc,".date")||text(doc,".meta");return{url:path,title,description:description.replace(/\s+/g," ").slice(0,170),category:normalizeCategory(rawCat+" "+title),image:firstImage(doc),date,stamp:Date.parse(item.lastmod||"")||0}}catch(e){return null}}
-  async function loadArticles(limit){
-    const r=await fetch("/sitemap.xml",{cache:"default"});if(!r.ok)throw new Error("sitemap");
-    const doc=new DOMParser().parseFromString(await r.text(),"application/xml");
-    let items=[...doc.querySelectorAll("url")].map(u=>({loc:u.querySelector("loc")?.textContent||"",lastmod:u.querySelector("lastmod")?.textContent||""})).filter(x=>x.loc);
-    items.sort((a,b)=>(Date.parse(b.lastmod||"")||0)-(Date.parse(a.lastmod||"")||0));
-    if(limit)items=items.slice(0,Math.max(limit,12));
-    const out=await Promise.all(items.map(readArticle));
-    return out.filter(Boolean).sort((a,b)=>b.stamp-a.stamp||b.date.localeCompare(a.date));
+  function loadDeferredArticleFeed(){
+    if(window.__solarArticleFeedLoading||window.__solarArticleFeedBooted)return;
+    window.__solarArticleFeedLoading=true;
+    const script=document.createElement("script");
+    script.src="/article-feed.js";
+    script.async=true;
+    script.onload=()=>{window.__solarArticleFeedLoading=false};
+    script.onerror=()=>{window.__solarArticleFeedLoading=false};
+    document.head.appendChild(script);
   }
-  const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
-  const card=a=>`<article class="article-card" data-search="${esc(a.title+" "+a.description+" "+a.category)}"><img src="${esc(a.image)}" alt="${esc(a.title)}" loading="lazy" decoding="async" width="1200" height="675" fetchpriority="low"><div class="article-body"><span class="tag">${esc(a.category)}</span><h3>${esc(a.title)}</h3><p>${esc(a.description)}</p><a href="${esc(a.url)}">Read article →</a></div></article>`;
-  function homepage(articles){const grid=document.getElementById("articleGrid");if(!grid)return;grid.innerHTML=articles.slice(0,12).map(card).join("");const heading=document.querySelector("#latest h2");if(heading&&!heading.querySelector("a")){const a=document.createElement("a");a.href="/solar-articles.html";a.textContent=heading.textContent+" →";a.style.color="inherit";a.style.textDecoration="none";heading.textContent="";heading.appendChild(a)}}
-  function hub(articles){const root=document.getElementById("articleHub");if(!root)return;const cats=[...new Set(articles.map(a=>a.category))];const priority=["Solar News","Solar Panel Prices","Solar Batteries","Solar Inverter Rates","Solar System Prices","Solar Accessories","EV Hub","Savings & Payback","Solar Guides"];cats.sort((a,b)=>(priority.indexOf(a)<0?99:priority.indexOf(a))-(priority.indexOf(b)<0?99:priority.indexOf(b))||a.localeCompare(b));const nav=cats.map(c=>`<a href="#cat-${encodeURIComponent(c)}">${esc(c)}</a>`).join("");root.innerHTML=`<div class="hub-filters"><a class="active" href="#all">All Articles</a>${nav}</div><div id="hubAll">${cats.map(c=>{const list=articles.filter(a=>a.category===c);return `<section class="hub-category" id="cat-${encodeURIComponent(c)}"><div class="hub-heading"><p class="eyebrow">SOLARRATEHUB</p><h2>${esc(c)}</h2><span>${list.length} article${list.length===1?"":"s"}</span></div><div class="article-grid">${list.map(card).join("")}</div></section>`}).join("")}</div>`}
-  async function boot(){const grid=document.getElementById("articleGrid"),root=document.getElementById("articleHub");if(!grid&&!root)return;try{const articles=await loadArticles(grid?18:null);homepage(articles);hub(articles)}catch(e){console.warn("Automatic article feed unavailable",e)}}
-  function schedule(){const run=()=>boot();if("requestIdleCallback" in window)window.requestIdleCallback(run,{timeout:2500});else window.setTimeout(run,1200)}
-  if(document.readyState==="complete")schedule();else window.addEventListener("load",schedule,{once:true});
-})();
+  const articleGrid=$("articleGrid"), articleHub=$("articleHub");
+  if(articleGrid){
+    if("IntersectionObserver" in window){
+      const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){observer.disconnect();loadDeferredArticleFeed()}},{rootMargin:"0px"});
+      observer.observe(articleGrid);
+    }else window.setTimeout(loadDeferredArticleFeed,5000);
+  }else if(articleHub){
+    const run=()=>loadDeferredArticleFeed();
+    if("requestIdleCallback" in window)window.requestIdleCallback(run,{timeout:4000});else window.setTimeout(run,2500);
+  }
+});
