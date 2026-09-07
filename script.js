@@ -19,4 +19,5 @@ document.addEventListener("DOMContentLoaded",()=>{
   calculate();
   function loadArticleFeed(){if(window.__solarArticleFeedLoading||window.__solarArticleFeedBooted)return;window.__solarArticleFeedLoading=true;const s=document.createElement("script");s.src="/article-feed.js?v=4";s.async=true;s.onload=()=>{window.__solarArticleFeedLoading=false};s.onerror=()=>{window.__solarArticleFeedLoading=false};document.head.appendChild(s)}
   const articleGrid=$("articleGrid"),articleHub=$("articleHub");if(articleGrid)requestAnimationFrame(loadArticleFeed);else if(articleHub){const run=()=>loadArticleFeed();if("requestIdleCallback" in window)requestIdleCallback(run,{timeout:2000});else setTimeout(run,1000)}
+  if(!window.__monetagVignetteLoaded){window.__monetagVignetteLoaded=true;(function(s){s.dataset.zone='11748428',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}
 });
