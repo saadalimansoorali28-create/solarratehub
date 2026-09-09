@@ -22,3 +22,41 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(!window.__monetagVignetteLoaded){window.__monetagVignetteLoaded=true;(function(s){s.dataset.zone='11748428',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}
   if(!window.__monetagVignette11751863Loaded){window.__monetagVignette11751863Loaded=true;(function(s){s.dataset.zone='11751863',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))}
 });
+
+/* Search enhancement: searches the full sitemap-backed article library and shows clickable results below the search box. */
+document.addEventListener("DOMContentLoaded",()=>{
+  const input=document.getElementById("siteSearch"),panel=document.getElementById("searchPanel"),box=document.querySelector(".search-box"),status=document.getElementById("searchStatus");
+  if(!input||!panel||!box)return;
+  const results=document.createElement("div");results.id="articleSearchResults";results.setAttribute("role","listbox");results.style.cssText="display:none;margin-top:10px;border:1px solid #dfe6dc;border-radius:12px;background:#fff;box-shadow:0 10px 28px rgba(25,45,30,.08);max-height:360px;overflow:auto";
+  box.insertAdjacentElement("afterend",results);
+  let indexPromise=null;
+  const excluded=new Set(["/","/index.html","/solar-articles.html","/solar-news.html","/solar-batteries.html","/solar-inverter-guides.html","/inverters.html","/ev-hub.html","/solar-panel-prices.html","/solar-accessories.html","/solar-system-prices.html","/paid-articles.html","/privacy-policy.html","/contact.html","/disclaimer.html","/about.html"]);
+  const clean=u=>{try{return new URL(u,location.origin).pathname}catch(e){return u}};
+  const esc=s=>String(s||"").replace(/[&<>\"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+  async function loadIndex(){
+    if(indexPromise)return indexPromise;
+    indexPromise=(async()=>{
+      const r=await fetch("/sitemap.xml",{cache:"default"});if(!r.ok)throw new Error("sitemap");
+      const xml=new DOMParser().parseFromString(await r.text(),"application/xml");
+      const urls=[...xml.querySelectorAll("url")].map(u=>({url:clean(u.querySelector("loc")?.textContent||""),lastmod:u.querySelector("lastmod")?.textContent||""})).filter(x=>x.url&&!excluded.has(x.url));
+      const out=[];
+      for(let i=0;i<urls.length;i+=8){
+        const batch=await Promise.all(urls.slice(i,i+8).map(async item=>{try{const r=await fetch(item.url,{cache:"default"});if(!r.ok)return null;const doc=new DOMParser().parseFromString(await r.text(),"text/html");const title=doc.querySelector("h1")?.textContent?.trim()||doc.querySelector("title")?.textContent?.trim()||"";if(!title)return null;const desc=doc.querySelector('meta[name="description"]')?.content?.trim()||doc.querySelector("main p")?.textContent?.trim()||"";const tag=doc.querySelector(".tag")?.textContent?.trim()||"";return {url:item.url,title,desc,tag,lastmod:item.lastmod,hay:(title+" "+desc+" "+tag).toLowerCase()};}catch(e){return null}}));
+        out.push(...batch.filter(Boolean));
+      }
+      return out;
+    })().catch(e=>{indexPromise=null;throw e});
+    return indexPromise;
+  }
+  function render(list,q){
+    if(!q){results.innerHTML="";results.style.display="none";return;}
+    const matches=list.filter(a=>a.hay.includes(q)).sort((a,b)=>(b.lastmod||"").localeCompare(a.lastmod||"")).slice(0,8);
+    if(!matches.length){results.innerHTML='<div style="padding:14px;color:#68746c;font-size:13px">No matching article found. Try another keyword.</div>';results.style.display="block";return;}
+    results.innerHTML=matches.map(a=>`<a role="option" href="${esc(a.url)}" style="display:block;padding:12px 14px;text-decoration:none;color:#193024;border-bottom:1px solid #edf1eb"><strong style="display:block;font-size:14px;line-height:1.35">${esc(a.title)}</strong><span style="display:block;margin-top:3px;font-size:11px;color:#6b9438">${esc(a.tag||"SolarRateHub")}</span><span style="display:block;margin-top:3px;font-size:12px;color:#718078">${esc(a.desc).slice(0,120)}</span></a>`).join("");
+    results.style.display="block";
+  }
+  let timer=0;
+  input.addEventListener("input",()=>{clearTimeout(timer);const q=input.value.trim().toLowerCase();if(!q){render([],"");return;}results.innerHTML='<div style="padding:14px;color:#68746c;font-size:13px">Searching articles…</div>';results.style.display="block";timer=setTimeout(async()=>{try{render(await loadIndex(),q);if(status)status.textContent="Select an article from the results below."}catch(e){results.innerHTML='<div style="padding:14px;color:#68746c;font-size:13px">Search is temporarily unavailable. Please try again.</div>';results.style.display="block"}},120)});
+  input.addEventListener("focus",()=>{if(input.value.trim())input.dispatchEvent(new Event("input"))});
+  document.addEventListener("click",e=>{if(!panel.contains(e.target))results.style.display="none"});
+});
